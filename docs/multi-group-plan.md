@@ -19,7 +19,7 @@ Confirmed decision:
 - Admin is **two-tier**: a global program admin (whole company) plus optional
   **per-group admins** who manage only their group.
 
-## Schema changes (`supabase/migrations/002_groups.sql`)
+## Schema changes (additive migration)
 
 Additive and safe to run against the existing database — no data loss. New
 columns are **nullable**, then backfilled to a default group.
@@ -93,7 +93,7 @@ land in the right unit without choosing.
 
 ## Rollout phases
 
-1. **Migration** — run `002_groups.sql`; everyone lands in the launch group.
+1. **Migration** — apply the groups migration; everyone lands in the launch group.
    App behaves exactly as today (single group).
 2. **Group-aware UI** — dashboard filter, new-club selector, club badge.
 3. **Per-group admin** — `group_admins` grants + scoped admin console.

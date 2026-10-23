@@ -50,22 +50,16 @@ cp .env.example .env.local
    - **anon / publishable key** → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - **service_role / secret key** → `SUPABASE_SERVICE_ROLE_KEY` (server-only; never expose it or commit it)
 
-### 3. Run the database scripts
+### 3. Create the database schema
 
-Open **SQL Editor** in Supabase and run these files **in order**, each one
-fully, before the next. Each is a single paste-and-run.
+Open **SQL Editor** in Supabase (**Database → SQL Editor → New query**), paste
+the entire contents of `supabase/schema.sql`, and run it once. That single
+script creates every table, the Supabase Auth integration (auto-profile trigger
++ optional email-domain lock), and all Row Level Security policies.
 
-| # | File | What it does |
-|---|---|---|
-| 1 | `supabase/migrations/001_init.sql` | Core tables (profiles, books, clubs, enrollments, weekly guides), RLS policies, optional email-domain lock (`allowed_email_domains` table + trigger), auto-profile trigger |
-| 2 | `supabase/migrations/002_member_approval.sql` | Admin-approval gate (`approved` flag), first/last name |
-| 3 | `supabase/migrations/003_engagement.sql` | Guide release control, emoji reactions, ratings, book-recommendation board with votes |
-| 4 | `supabase/migrations/004_business_group_dept.sql` | Business group + department on profiles |
-| 5 | `supabase/migrations/005_seat_limit_and_bounds.sql` | Fixes the seat-limit check; bounds club seats/weeks |
-| 6 | `supabase/migrations/006_last_seen.sql` | "Last seen" for the admin engagement view |
-
-Alternatively, with the [Supabase CLI](https://supabase.com/docs/guides/cli):
-`supabase link --project-ref <ref> && supabase db push`.
+Alternatively, apply it with the [Supabase CLI](https://supabase.com/docs/guides/cli):
+`supabase link --project-ref <ref>`, then run the file against your database,
+e.g. `psql "$DATABASE_URL" -f supabase/schema.sql`.
 
 ### 4. Configure Supabase Auth
 

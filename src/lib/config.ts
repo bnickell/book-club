@@ -29,6 +29,6 @@ export function isAllowedEmail(email: string): boolean {
 export const APP_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 // Emoji reactions members can leave on a released weekly guide. Single source
-// of truth — the guide_reactions CHECK constraint in migration 003 mirrors it.
+// of truth — the guide_reactions CHECK constraint in schema.sql mirrors it.
 export const REACTIONS = ["👍", "💡", "🔥", "❤️", "🎯"] as const;
 export type Reaction = (typeof REACTIONS)[number];
