@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bc-accent: #818CF8;
+  --bc-ink: #0F172A;
+  --bc-surface: #E2E8F0;
+  --bc-canvas: #F8FAFC;
+  --bc-line: #CBD5E1;
+  --bc-muted: #475569;
+}
+
+body {
+  background: var(--bc-canvas);
+  color: var(--bc-ink);
+}
+
+/* Signature element: quarterly shelf — clubs rendered as book spines */
+.spine {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.spine:hover {
+  transform: rotate(180deg) translateY(6px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spine, .spine:hover { transition: none; transform: rotate(180deg); }
+}
+
+*:focus-visible {
+  outline: 2px solid var(--bc-accent);
+  outline-offset: 2px;
+}
